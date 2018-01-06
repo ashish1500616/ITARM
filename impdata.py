@@ -1,18 +1,30 @@
 import csv
 import sys
 import itertools
+import pandas as pd
 #open the csv file containg the data
 with open('MOCK_DATA.csv') as csvfile:
 
 	data=list(csv.reader(csvfile,delimiter=' '))
+
+
+
 	# print(data[0][0].split(',')[1])
 	# sys.exit()
+	# for row in data:
+	# 	print(row,end="\n")
+	# 	f=open("DataList.txt","w+")
+	# 	f.write(str(row)+'\n')
+	# f.close()
+	# sys.exit()
+
 	tempList=[]
 	supportVariabe=50
 	indexCount=1
 	supportList=[]
 	supindex=0
 	result=[]
+	com2=[]
 	# sys.exit()
 	#print(data[0][0].split(','))
 
@@ -46,17 +58,24 @@ with open('MOCK_DATA.csv') as csvfile:
 			print(finalList[m],"        ",counterList[0][finalList[m]])
 
 	def createCombination():
-		
+		global supportList
 		pfile="combinationList.txt"
 		# create combination file txt
 		f=open(pfile,"w+")
 		#empty the content of the file
 		f.seek(0)
+
 		f.truncate()
 		#create combination of all the indexes
-		for L in range(2, len(finalList)+1):
-		  for subset in itertools.combinations(finalList, L):
-		  	f.write("%s\n"%str(subset))
+		#for L in range(2, len(finalList)+1):
+		for subset in itertools.combinations(finalList, 2):
+			#global com2
+			com2.append(subset)
+		print(com2)
+		supportList=[0]*len(com2)
+
+		  	#f.write("%s\n"%str(subset))
+
 		#close the file
 		f.close()
 		    #checkData(subset,L)
@@ -73,11 +92,12 @@ with open('MOCK_DATA.csv') as csvfile:
 		#print(int(lines[1].strip('(').strip(')').split(',')[1]))
 		# print(lines[2000])
 		# sys.exit()
-		for index,line in enumerate(lines):
-			line=line.strip('(').strip(')').split(',')
+		for index,line in enumerate(com2):
+			#line=line.strip('(').strip(')').split(',')
 			# print("Combination",line)
 			# print("1 array",list(map(parseDataCsv,line)))
 			# sys.exit()
+
 			if(len(list(filter(lambda x: x==1,map(parseDataCsv,line))))==len(line)):
 				supportList[index]+=1
 		#sys.exit()
@@ -88,7 +108,8 @@ with open('MOCK_DATA.csv') as csvfile:
 		global indexCount
 		#print(indexCount)
 		if(l!=""):
-			ind=int(l)
+			ind=l
+			#sys.exit()
 			if data[indexCount][0].split(',')[ind]=="TRUE":
 				return 1
 
@@ -102,65 +123,74 @@ with open('MOCK_DATA.csv') as csvfile:
 	# printCounterList()
 
 	# print("\n Final List \n")
-	#printFinalList()
+	printFinalList()
 	#print(finalList)
 	# print("\n Combination \n")
 	createCombination()
 	# readCombList()
-	with open('combinationList.txt') as f:
-			lines = f.read()
-	lines=lines.split("\n")
+	# with open('combinationList.txt') as f:
+	# 		lines = f.read()
+	# lines=lines.split("\n")
 
-	# print(type(lines))
-	# sys.exit()
-	supportList=[0]*len(lines)
-	#print(supportList)
+	# # print(type(lines))
+	# # sys.exit()
+	# supportList=[0]*len(lines)
+	# #print(supportList)
 	for i in range(len(data)):
 		indexCount=i
 		print(i,end="")
 		checkData()
-	# Creation of Frequency List Created
-	g=open("frequencyList.txt","w+")
+	sup2=list(zip(com2,supportList))
+	def filt2(x):
+		if x[1]>30:
+			return x
+	chedata=(list(filter(lambda x: x!=None,map(filt2,sup2))))
+	print(chedata)
+	print("Length =",len(chedata))
+
+
+
+	#Creation of Frequency List Created
+	g=open("2--frequentSet.txt","w+")
 	g.seek(0)
 	g.truncate()
-	g.write(str(supportList))
+	g.write(str(list(zip(com2,supportList))))
 	g.close()
 	
-	print("Frequency File Created")
-	# print(finalList+tempList)
-	#create Combination Frequency
-	print("Creating Combination Frequency")
-	h=open("CombinationFrequency.txt","w+")
-	h.seek(0)
-	h.truncate()
-	h.write(str(list(zip(lines,supportList))))
-	h.close()
-	print("Frequency of combination created")
+	# print("Frequency File Created")
+	# # print(finalList+tempList)
+	# #create Combination Frequency
+	# print("Creating Combination Frequency")
+	# h=open("CombinationFrequency.txt","w+")
+	# h.seek(0)
+	# h.truncate()
+	# h.write(str(list(zip(lines,supportList))))
+	# h.close()
+	# print("Frequency of combination created")
 	
-	#creation of combination list above support variable
-	# for count,data in 
+	# #creation of combination list above support variable
+	# # for count,data in 
 
-	i=open("CombinationAboveSupport.txt","w+")
-	i.seek(0)
-	i.truncate()
+	# i=open("CombinationAboveSupport.txt","w+")
+	# i.seek(0)
+	# i.truncate()
 
-	def traversupportList():
-		global result
-		for ind,val in enumerate(supportList):
-			if(val>30):
-				result.append(lines[ind])
+	# def traversupportList():
+	# 	global result
+	# 	for ind,val in enumerate(supportList):
+	# 		if(val>30):
+	# 			result.append(lines[ind])
 	
-	# print(list(map(traversupportList,supportList)))
-	# sys.exit()
-	traversupportList()
+	# # print(list(map(traversupportList,supportList)))
+	# traversupportList()
 
-	#i.write(str(list(map(traversupportList,supportList))).strip('(').strip(')'))
-	i.write(str(result))
-	# for d in (list(map(traversupportList,supportList))):
-
-	# 	result.append(lines[d])
+	# #i.write(str(list(map(traversupportList,supportList))).strip('(').strip(')'))
 	# i.write(str(result))
-	i.close()
-	print("Combination Above Support Text Created")
+	# # for d in (list(map(traversupportList,supportList))):
+
+	# # 	result.append(lines[d])
+	# # i.write(str(result))
+	# i.close()
+	# print("Combination Above Support Text Created")
 
 
