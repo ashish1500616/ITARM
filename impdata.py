@@ -4,11 +4,9 @@ import itertools
 import pandas as pd
 #open the csv file containg the data
 with open('MOCK_DATA.csv') as csvfile:
+	#start  timer 
 
 	data=list(csv.reader(csvfile,delimiter=' '))
-
-
-
 	# print(data[0][0].split(',')[1])
 	# sys.exit()
 	# for row in data:
@@ -25,6 +23,8 @@ with open('MOCK_DATA.csv') as csvfile:
 	supindex=0
 	result=[]
 	com2=[]
+	secfinal=[]
+	kfrequentset=[]
 	# sys.exit()
 	#print(data[0][0].split(','))
 
@@ -34,6 +34,7 @@ with open('MOCK_DATA.csv') as csvfile:
 	counterList=[nameOfProductColumn[0:],[0]*(noOfProducts+1)]
 	finalList=[]
 	output=[]
+	combin=[]
 	#print(type(counterList[1][37]))
 
 	def updateCounterList():
@@ -80,6 +81,33 @@ with open('MOCK_DATA.csv') as csvfile:
 		f.close()
 		    #checkData(subset,L)
 		# print("Combination\n",output)
+	def nfrequencySet(d):
+		global indexCount,kfrequentset
+		print("Working for n frequency Set")
+		for L in range(3, len(d)+1):
+			combin=[]
+			for subset in itertools.combinations(d, L):
+				combin.append(subset)
+			supportList=[0]*len(combin)
+			for i in range(len(data)):
+				indexCount=i
+				for index,line in enumerate(combin):
+					
+					# sys.exit()
+					if(len(list(filter(lambda x: x==1,map(parseDataCsv,line))))==len(line)):
+						# print((line))
+						# print((list(filter(lambda x: x==1,map(parseDataCsv,line)))))
+						# print("Increasing")
+						# print("SupportValue before",supportList[index])
+						supportList[index]+=1
+						# print("SupportValue after",supportList[index])
+			sup=list(zip(combin,supportList))
+			chedata=(list(filter(lambda x: x!=None,map(filt2,sup))))
+			# print(chedata,"\n")
+			kfrequentset.append(chedata)
+		# end timer
+
+
 
 	def readCombList():
 		with open('combinationList.txt') as f:
@@ -88,7 +116,7 @@ with open('MOCK_DATA.csv') as csvfile:
 
 	def checkData():
 		print("\t--->Row Checking")
-		global lines
+		# global lines
 		#print(int(lines[1].strip('(').strip(')').split(',')[1]))
 		# print(lines[2000])
 		# sys.exit()
@@ -142,11 +170,20 @@ with open('MOCK_DATA.csv') as csvfile:
 		checkData()
 	sup2=list(zip(com2,supportList))
 	def filt2(x):
-		if x[1]>30:
+		if x[1]>(.20)*len(data):
 			return x
 	chedata=(list(filter(lambda x: x!=None,map(filt2,sup2))))
-	print(chedata)
+	kfrequentset.append(chedata)
+	# print(chedata)
 	print("Length =",len(chedata))
+	for dt in chedata:
+		for n in dt[0]:
+			secfinal.append(n)
+	secfinal2=list(set(secfinal))
+	# print(secfinal2)
+	nfrequencySet(secfinal2)
+
+
 
 
 
@@ -192,5 +229,7 @@ with open('MOCK_DATA.csv') as csvfile:
 	# # i.write(str(result))
 	# i.close()
 	# print("Combination Above Support Text Created")
+
+
 
 

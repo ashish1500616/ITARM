@@ -4,12 +4,12 @@ file1=open("mushroom.txt","r")
 file1.readline()
 
 
-file2=open("convertedmushFile.txt","a+")
+file2=open("mush4.txt","a+")
 file2.seek(0)
 file2.truncate()
 l = list(file1)
 count=1
-for n in l:
+for n in l[6000:]:
 	var=[0]*120
 	count+=1
 	print(count,"\n")
