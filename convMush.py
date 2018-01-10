@@ -19,7 +19,7 @@ for n in l[6000:]:
 	for d in eachline:
 		var[int(d)]=1
 	
-	file2.write(str(var))
+	file2.write(str(var)+'\n')
 	
 
 

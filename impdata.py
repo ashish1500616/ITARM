@@ -3,6 +3,12 @@ import sys
 import itertools
 import pandas as pd
 #open the csv file containg the data
+
+
+lst =  open('mush1.txt').readlines()
+#print(lst)
+print((lst[1][1:(len(lst[1])-2)].split(',')[2]).strip())
+sys.exit()
 with open('MOCK_DATA.csv') as csvfile:
 	#start  timer 
 
@@ -15,6 +21,7 @@ with open('MOCK_DATA.csv') as csvfile:
 	# 	f.write(str(row)+'\n')
 	# f.close()
 	# sys.exit()
+
 
 	tempList=[]
 	supportVariabe=50
@@ -229,7 +236,6 @@ with open('MOCK_DATA.csv') as csvfile:
 	# # i.write(str(result))
 	# i.close()
 	# print("Combination Above Support Text Created")
-
 
 
 
