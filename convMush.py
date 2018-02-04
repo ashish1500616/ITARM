@@ -1,10 +1,10 @@
-import sys 
+import sys
 
 file1=open("mushroom.txt","r")
 file1.readline()
 
 
-file2=open("mush4.txt","a+")
+file2=open("mush2.txt","a+")
 file2.seek(0)
 file2.truncate()
 l = list(file1)
@@ -18,9 +18,9 @@ for n in l[6000:]:
 
 	for d in eachline:
 		var[int(d)]=1
-	
+
 	file2.write(str(var)+'\n')
-	
+
 
 
 

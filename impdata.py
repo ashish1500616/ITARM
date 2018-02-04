@@ -7,10 +7,10 @@ import pandas as pd
 
 lst =  open('mush1.txt').readlines()
 #print(lst)
-print((lst[1][1:(len(lst[1])-2)].split(',')[2]).strip())
+print((lst[1][1:(len(lst[1])-2)].split(',')[1]).strip())
 sys.exit()
 with open('MOCK_DATA.csv') as csvfile:
-	#start  timer 
+	#start  timer
 
 	data=list(csv.reader(csvfile,delimiter=' '))
 	# print(data[0][0].split(',')[1])
@@ -99,7 +99,7 @@ with open('MOCK_DATA.csv') as csvfile:
 			for i in range(len(data)):
 				indexCount=i
 				for index,line in enumerate(combin):
-					
+
 					# sys.exit()
 					if(len(list(filter(lambda x: x==1,map(parseDataCsv,line))))==len(line)):
 						# print((line))
@@ -136,7 +136,7 @@ with open('MOCK_DATA.csv') as csvfile:
 			if(len(list(filter(lambda x: x==1,map(parseDataCsv,line))))==len(line)):
 				supportList[index]+=1
 		#sys.exit()
-		
+
 
 
 	def parseDataCsv(l):
@@ -200,7 +200,7 @@ with open('MOCK_DATA.csv') as csvfile:
 	g.truncate()
 	g.write(str(list(zip(com2,supportList))))
 	g.close()
-	
+
 	# print("Frequency File Created")
 	# # print(finalList+tempList)
 	# #create Combination Frequency
@@ -211,9 +211,9 @@ with open('MOCK_DATA.csv') as csvfile:
 	# h.write(str(list(zip(lines,supportList))))
 	# h.close()
 	# print("Frequency of combination created")
-	
+
 	# #creation of combination list above support variable
-	# # for count,data in 
+	# # for count,data in
 
 	# i=open("CombinationAboveSupport.txt","w+")
 	# i.seek(0)
@@ -224,7 +224,7 @@ with open('MOCK_DATA.csv') as csvfile:
 	# 	for ind,val in enumerate(supportList):
 	# 		if(val>30):
 	# 			result.append(lines[ind])
-	
+
 	# # print(list(map(traversupportList,supportList)))
 	# traversupportList()
 
@@ -236,6 +236,3 @@ with open('MOCK_DATA.csv') as csvfile:
 	# # i.write(str(result))
 	# i.close()
 	# print("Combination Above Support Text Created")
-
-
-
