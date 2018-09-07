@@ -152,10 +152,14 @@ print("File1: Second Candidate Set\n {d1}".format(
     d1=object.secondCandidateDict))
 print("\n\n")
 object.createKCandidateSet()
+print("Creation of KCandidateSet done starting searching for K candidate.")
 object.searchKCandidateSet()
+print(" searching for K candidate Set done.")
+
 # print("File 1: KCandidateSet \n {data}".format(data=object.KFrequentSet))
 print("\n\n")
 
+print("Started working on second Partition")
 
 object2 = Frequency(file2,sup2_t)
 object2.openFile()
